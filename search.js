@@ -1,6 +1,6 @@
 var fs = require('fs');
 var path = require('path');
-var flag = false;
+var foundSomthing = false;
 
 function check(dir) {
     var files = fs.readdirSync(dir);
@@ -12,7 +12,7 @@ function check(dir) {
             check(next);
         else if (path.extname(next) == str) {
             if ((fs.readFileSync(next, 'utf8')).toLowerCase().includes(process.argv[3].toString().toLowerCase())) {
-                flag = true;
+                foundSomthing = true;
                 console.log(next);
             }
         }
@@ -25,5 +25,5 @@ if (process.argv.length != 4) {
 }
 var str ="." + process.argv[2].toString().toLowerCase();
 check(__dirname);
-if (!(flag))
+if (!(foundSomthing))
     console.log("No file was found");
